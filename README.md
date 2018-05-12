@@ -1,4 +1,5 @@
 # D-environment
+development environment 
 
 ## Tools
 
@@ -21,6 +22,7 @@
 
 ```
 $ cd <Vagrantfile directory>
+$ mkdir data/
 $ vagrant up
 $ ssh vagrant@192.168.10.10
 ```

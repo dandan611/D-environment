@@ -20,10 +20,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "./data", "/vagrant_data"
 
-  if Vagrant.has_plugin?("vagrant-cachier")
-    config.cache.scope = :box 
-  end
-
   config.vm.provider "virtualbox" do |vb|
      vb.gui = true
      vb.memory = "2048"
@@ -35,7 +31,21 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
      sudo yum -y groupinstall "GNOME Desktop"
      sudo yum -y epel-release
-     sudo yum -y install git
+     sudo yum install gcc zlib-devel bzip2 bzip2-devel readline readline-devel sqlite sqlite-devel openssl openssl-devel git
+     sudo easy_install pip
+     sudo pip install -U pip
+     sudo pip install virtualenv
+     mkdir ~/.pyenv
+     cd ~/.pyenv
+     sudo pip install virtualenvwrapper
+     sudo yum install -y https://centos7.iuscommunity.org/ius-release.rpm
+     sudo yum install -y python36u python36u-libs python36u-devel python36u-pip
+     sudo echo "### Virtualenvwrapper" >> ~/.bash_profile
+     sudo echo "if [ -f /usr/bin/virtualenvwrapper.sh ]; then" >> ~/.bash_profile
+     sudo echo "    export WORKON_HOME=$HOME/.pyenv" >> ~/.bash_profile
+     sudo echo "    source /usr/bin/virtualenvwrapper.sh" >> ~/.bash_profile
+     sudo echo "fi" >> ~/.bash_profile
+     sudo source ~/.bash_profile
      sudo systemctl set-default graphical.target
      systemctl get-default
      sudo shutdown -r now

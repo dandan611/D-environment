@@ -25,6 +25,8 @@ $ cd <Vagrantfile directory>
 $ mkdir data/
 $ vagrant up
 $ ssh vagrant@192.168.10.10
+$ mkvirtualenv --python python3.6 <product name>
+$ deactivate
 ```
 
 2. stop

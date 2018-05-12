@@ -15,6 +15,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "bento/centos-7.4"
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8000, host: 18000   # tabby default
+  config.vm.network "forwarded_port", guest: 8888, host: 28000   # jupyter default
 
   config.vm.network "private_network", ip: "192.168.10.10"
 
@@ -31,6 +33,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
      sudo yum -y groupinstall "GNOME Desktop"
      sudo yum -y epel-release
+     sudo yum -y tree
      sudo yum install gcc zlib-devel bzip2 bzip2-devel readline readline-devel sqlite sqlite-devel openssl openssl-devel git
      sudo easy_install pip
      sudo pip install -U pip
@@ -46,6 +49,8 @@ Vagrant.configure("2") do |config|
      sudo echo "    source /usr/bin/virtualenvwrapper.sh" >> ~/.bash_profile
      sudo echo "fi" >> ~/.bash_profile
      sudo source ~/.bash_profile
+     sudo pip install Django
+     sudo pip install jupyter
      sudo systemctl set-default graphical.target
      systemctl get-default
      sudo shutdown -r now

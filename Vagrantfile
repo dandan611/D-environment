@@ -20,6 +20,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "./data", "/vagrant_data"
 
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box 
+  end
+
   config.vm.provider "virtualbox" do |vb|
      vb.gui = true
      vb.memory = "2048"

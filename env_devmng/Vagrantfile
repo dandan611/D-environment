@@ -35,22 +35,17 @@ Vagrant.configure("2") do |config|
      sudo yum -y groupinstall "GNOME Desktop"
      sudo yum install gcc zlib-devel bzip2 bzip2-devel readline readline-devel  openssl openssl-devel git
      sudo systemctl set-default graphical.target
-     systemctl get-default
-     
-     sudo shutdown -r now
+     sudo systemctl get-default
      
      # install docker
      sudo yum install -y docker
      sudo systemctl enable docker
      sudo systemctl start docker
      
-     # install gitlab
-     mkdir -p ~/docker-data/gitlab
-     mkdir -p ~/docker-data/gitlab-redis
-     mkdir -p ~/docker-data/gitlab-pgdata
-     sudo docker run -d --name my-gitlab-postgres -v ~/docker-data/gitlab-pgdata:/var/lib/postgresql -e 'DB_NAME=gitlabhq_production' -e 'DB_USER=gitlab' -e 'DB_PASS=password' -e 'DB_EXTENSION=pg_trgm' sameersbn/postgresql:9.6
-     sudo docker run -d --name my-gitlab-redis -v ~/docker-data/gitlab-redis:/var/lib/redis sameersbn/redis:latest
-     sudo docker run -d --name my-gitlab -v ~/docker-data/gitlab:/home/git/data --link my-gitlab-postgres:postgresql --link my-gitlab-redis:redisio --publish 10022:22 --publish 10080:80 -e 'GITLAB_PORT=10080' -e 'GITLAB_SSH_PORT=10022' -e 'GITLAB_TIMEZONE=Tokyo' -e 'GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string' -e 'GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alpha-numeric-string' -e 'GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alpha-numeric-string' sameersbn/gitlab:11.1.4
-
+     # run gitla
+     sudo docker run --name gitlab-postgresql -d --env 'DB_NAME=gitlabhq_production' --env 'DB_USER=gitlab' --env 'DB_PASS=password' --env 'DB_EXTENSION=pg_trgm' --volume /srv/docker/gitlab/postgresql:/var/lib/postgresql sameersbn/postgresql:10
+     sudo docker run --name gitlab-redis -d --volume /srv/docker/gitlab/redis:/var/lib/redis sameersbn/redis:4.0.9-1
+     sudo docker run --name gitlab -d     --link gitlab-postgresql:postgresql --link gitlab-redis:redisio --publish 10022:22 --publish 10080:80 --env 'GITLAB_PORT=10080' --env 'GITLAB_SSH_PORT=10022' --env 'GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string' --env 'GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alpha-numeric-string' --env 'GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alpha-numeric-string' --volume /srv/docker/gitlab/gitlab:/home/git/data sameersbn/gitlab:11.1.4
+     sudo shutdown -r now
   SHELL
 end

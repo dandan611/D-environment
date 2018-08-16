@@ -22,22 +22,24 @@ development environment
 
 1. env_prodev
   * development product 
+  * vagrant@192.168.10.10
 2. env_devmng
   * development management tool operation
+  * vagrant@192.168.10.10
 3. env_deploy
   * deploy and testing 
+  * vagrant@192.168.10.200
 
 ## Usage
 
 1. start
 
 ```
-$ cd <Vagrantfile directory>
+$ git clone https://github.com/dandan611/D-environment.git
+$ cd <Vagrantfile directory:env_prodev>
 $ mkdir data/
 $ vagrant up
 $ ssh vagrant@192.168.10.10
-$ mkvirtualenv --python python3.6 <product name>
-$ deactivate
 ```
 
 2. stop

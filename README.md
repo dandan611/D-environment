@@ -25,7 +25,7 @@ development environment
   * vagrant@192.168.10.10
 2. env_devmng
   * development management tool operation
-  * vagrant@192.168.10.10
+  * vagrant@192.168.10.100
 3. env_deploy
   * deploy and testing 
   * vagrant@192.168.10.200

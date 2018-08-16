@@ -1,0 +1,59 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "bento/centos-7.4"
+
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8000, host: 18000   # tabby default
+  config.vm.network "forwarded_port", guest: 8888, host: 28000   # jupyter default
+
+  config.vm.network "private_network", ip: "192.168.10.10"
+
+  config.vm.synced_folder "./data", "/vagrant_data"
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.name = "product_devel"
+     vb.gui = true
+     vb.memory = "2048"
+  end
+
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo yum -y groupinstall "GNOME Desktop"
+     sudo yum -y epel-release
+     sudo yum -y tree
+     sudo yum install gcc zlib-devel bzip2 bzip2-devel readline readline-devel sqlite sqlite-devel openssl openssl-devel git
+     sudo easy_install pip
+     sudo pip install -U pip
+     sudo pip install virtualenv
+     mkdir ~/.pyenv
+     cd ~/.pyenv
+     sudo pip install virtualenvwrapper
+     sudo yum install -y https://centos7.iuscommunity.org/ius-release.rpm
+     sudo yum install -y python36u python36u-libs python36u-devel python36u-pip
+     sudo echo "### Virtualenvwrapper" >> ~/.bash_profile
+     sudo echo "if [ -f /usr/bin/virtualenvwrapper.sh ]; then" >> ~/.bash_profile
+     sudo echo "    export WORKON_HOME=$HOME/.pyenv" >> ~/.bash_profile
+     sudo echo "    source /usr/bin/virtualenvwrapper.sh" >> ~/.bash_profile
+     sudo echo "fi" >> ~/.bash_profile
+     sudo source ~/.bash_profile
+     sudo pip install Django
+     sudo pip install jupyter
+     sudo systemctl set-default graphical.target
+     systemctl get-default
+     sudo shutdown -r now
+  SHELL
+end

@@ -1,0 +1,56 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "bento/centos-7.4"
+
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 10080, host: 10080 # gitlab
+  config.vm.network "forwarded_port", guest: 10022, host: 10022 # gitlab
+  
+  config.vm.network "private_network", ip: "192.168.10.100"
+
+  config.vm.synced_folder "./data", "/vagrant_data"
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.name = "devel_manage"
+     vb.gui = true
+     vb.memory = "2048"
+  end
+
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo yum -y groupinstall "GNOME Desktop"
+     sudo yum install gcc zlib-devel bzip2 bzip2-devel readline readline-devel  openssl openssl-devel git
+     sudo systemctl set-default graphical.target
+     systemctl get-default
+     
+     sudo shutdown -r now
+     
+     # install docker
+     sudo yum install -y docker
+     sudo systemctl enable docker
+     sudo systemctl start docker
+     
+     # install gitlab
+     mkdir -p ~/docker-data/gitlab
+     mkdir -p ~/docker-data/gitlab-redis
+     mkdir -p ~/docker-data/gitlab-pgdata
+     sudo docker run -d --name my-gitlab-postgres -v ~/docker-data/gitlab-pgdata:/var/lib/postgresql -e 'DB_NAME=gitlabhq_production' -e 'DB_USER=gitlab' -e 'DB_PASS=password' -e 'DB_EXTENSION=pg_trgm' sameersbn/postgresql:9.6
+     sudo docker run -d --name my-gitlab-redis -v ~/docker-data/gitlab-redis:/var/lib/redis sameersbn/redis:latest
+     sudo docker run -d --name my-gitlab -v ~/docker-data/gitlab:/home/git/data --link my-gitlab-postgres:postgresql --link my-gitlab-redis:redisio --publish 10022:22 --publish 10080:80 -e 'GITLAB_PORT=10080' -e 'GITLAB_SSH_PORT=10022' -e 'GITLAB_TIMEZONE=Tokyo' -e 'GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string' -e 'GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alpha-numeric-string' -e 'GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alpha-numeric-string' sameersbn/gitlab:11.1.4
+
+  SHELL
+end

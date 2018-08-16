@@ -7,14 +7,25 @@ development environment
 * virtualbox(5.2.4.r119785)
 * vagrant plugin
   * vagrant-cachier
+  * vagrant-vbguest
   
     ```
     $ vagrant plugin install vagrant-cachier
+    $ vagrant plugin install vagrant-vbguest
     ```
 
 ## OS
 
 * CentoOS 7.4
+
+## Environment Type
+
+1. env_prodev
+  * development product 
+2. env_devmng
+  * development management tool operation
+3. env_deploy
+  * deploy and testing 
 
 ## Usage
 

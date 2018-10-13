@@ -35,7 +35,7 @@ development environment
 1. start
 
 ```
-$ git clone https://github.com/dandan611/D-environment.git
+$ git clone https://github.com/dandan611/Settler.git
 $ cd <Vagrantfile directory:env_prodev>
 $ mkdir data/
 $ vagrant up

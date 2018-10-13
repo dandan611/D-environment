@@ -1,4 +1,4 @@
-# D-environment
+# Settler
 development environment 
 
 ## Tools

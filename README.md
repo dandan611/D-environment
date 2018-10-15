@@ -3,6 +3,8 @@ development environment
 
 ## Tools
 
+* cygwin(latest)
+* git(latest)
 * vagrant(2.0.1)
 * virtualbox(5.2.4.r119785)
 * vagrant plugin

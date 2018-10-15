@@ -6,11 +6,10 @@ development environment
 * vagrant(2.0.1)
 * virtualbox(5.2.4.r119785)
 * vagrant plugin
-  * vagrant-cachier
   * vagrant-vbguest
+  * vagrant-vbox-snapshot
   
     ```
-    $ vagrant plugin install vagrant-cachier
     $ vagrant plugin install vagrant-vbguest
     ```
 
@@ -21,13 +20,15 @@ development environment
 ## Environment Type
 
 1. env_prodev
-  * development product 
+  * for development product 
   * vagrant@192.168.10.10
+
 2. env_devmng
-  * development management tool operation
+  * for using development management tool 
   * vagrant@192.168.10.100
+  
 3. env_deploy
-  * deploy and testing 
+  * for deploy and testing
   * vagrant@192.168.10.200
 
 ## Usage
@@ -53,3 +54,12 @@ vagrant halt
 ```
 $ vagrant destroy -f
 ```
+
+## Installed software
+
+| Installed Software | Version | Purpose | env_prodev | env_devmng | env_deploy |
+| :----------------- | :-----: | :------ | :-----: | :-----: | :-----: |
+|Git                 |latest   | install | ○       | ○       | ○       |
+|Ansible             |latest   | provision | ○       | ○       | ○       |
+|docker              |latest   | use image | ○       | ○       | ○       |
+|||||||

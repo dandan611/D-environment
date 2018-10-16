@@ -27,4 +27,5 @@ gitlab_ssh_port: "10022"	# 10022
 # Other
 #---------------------
 
+env_type: "devmng"
 shared_folder: "./data"

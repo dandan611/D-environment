@@ -1,0 +1,7 @@
+#
+# devmng.yml
+#
+- hosts: all
+  roles:
+    - python36
+  sudo: yes

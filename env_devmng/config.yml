@@ -1,0 +1,30 @@
+# config file
+---
+
+#---------------------
+# Vbox infomation
+#---------------------
+
+vbox_image: "bento/centos-7.4"
+vbox_instance_name: "devmng"
+vbox_instance_memory: "2048"
+vbox_instance_gui: "true"
+
+#---------------------
+# Network
+#---------------------
+
+# ip
+host_ip: "127.0.0.1"
+private_ip: "192.168.10.100"
+
+# Portfoward
+default_port: "8080"		# 80
+gitlab_port: "10080"		# 10080
+gitlab_ssh_port: "10022"	# 10022
+
+#---------------------
+# Other
+#---------------------
+
+shared_folder: "./data"

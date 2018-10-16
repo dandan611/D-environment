@@ -1,6 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'yaml'
+
+begin
+  conf = YAML.load_file(File.join(File.dirname(__FILE__), 'config.yml'))
+rescue Errno::ENOENT => ex
+  STDERR.puts ex
+  STDERR.puts 'Create config.yml at the same dir with Vagrantfile'
+  exit(false)
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -12,21 +22,21 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "bento/centos-7.4"
+  config.vm.box = conf['vbox_image']
 
   config.vm.usable_port_range = 2000..19999
-  config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1", id: "Product", auto_correct: true
-  config.vm.network "forwarded_port", guest: 10080, host: 10080, host_ip: "127.0.0.1", id: "GitLab", auto_correct: true
-  config.vm.network "forwarded_port", guest: 10022, host: 10022, host_ip: "127.0.0.1",  id: "GitLab-ssh", auto_correct: true
+  config.vm.network "forwarded_port", guest: 80, host: conf['default_port'], host_ip: conf['host_ip'], id: "Product", auto_correct: true
+  config.vm.network "forwarded_port", guest: 10080, host: conf['gitlab_port'], host_ip: conf['host_ip'], id: "GitLab", auto_correct: true
+  config.vm.network "forwarded_port", guest: 10022, host: conf['gitlab_ssh_port'], host_ip: conf['host_ip'],  id: "GitLab-ssh", auto_correct: true
   
-  config.vm.network "private_network", ip: "192.168.10.100"
+  config.vm.network "private_network", ip: conf['private_ip']
 
-  config.vm.synced_folder "./data", "/vagrant_data"
+  config.vm.synced_folder conf['shared_folder'], "/vagrant_data"
 
   config.vm.provider "virtualbox" do |vb|
-     vb.name = "devel_manage"
-     vb.gui = true
-     vb.memory = "2048"
+     vb.name = conf['vbox_instance_name']
+     vb.memory = conf['vbox_instance_memory']
+     vb.gui = conf['vbox_instance_gui']
   end
 
   # Enable provisioning with a shell script. Additional provisioners such as

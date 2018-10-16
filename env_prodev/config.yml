@@ -1,0 +1,29 @@
+# config file
+---
+
+#---------------------
+# Vbox infomation
+#---------------------
+
+vbox_image: "bento/centos-7.4"
+vbox_instance_name: "prodev"
+vbox_instance_memory: "2048"
+vbox_instance_gui: "true"
+
+#---------------------
+# Network
+#---------------------
+
+# ip
+host_ip: "127.0.0.1"
+private_ip: "192.168.10.10"
+
+# Portfoward
+default_port: "8080"		      # 80
+tabby_default_port: "18000"		# 8000
+
+#---------------------
+# Other
+#---------------------
+
+shared_folder: "./data"

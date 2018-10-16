@@ -29,6 +29,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: conf['private_ip']
 
   config.vm.synced_folder conf['shared_folder'], "/vagrant_data"
+  config.vm.synced_folder "../provision", "/provision", type: "virtualbox", owner: "vagrant", group: "vagrant"
 
   config.vm.provider "virtualbox" do |vb|
     vb.name = conf['vbox_instance_name']
@@ -36,14 +37,27 @@ Vagrant.configure("2") do |config|
     vb.gui = conf['vbox_instance_gui']
   end
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-  # documentation for more information about their specific syntax and use.
+  # [Machine Setting] Run shell script on guest machine.
   config.vm.provision "shell", inline: <<-SHELL
+     
+     # insall Gnome desktop
      sudo yum -y groupinstall "GNOME Desktop"
      sudo systemctl set-default graphical.target
      systemctl get-default
      
+     # install ansible
+     sudo yum -y install ansible
+  SHELL
+
+  # [VM provisioning] Run Ansible from the Vagrant Host
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook =  "/provision/" + conf['env_type'] + ".yml"
+  end
+
+  # [Machine Setting] Run shell script on guest machine.
+  config.vm.provision "shell", inline: <<-SHELL
+
+     # restart vm
      sudo shutdown -r now
   SHELL
 end

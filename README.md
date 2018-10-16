@@ -69,8 +69,10 @@ EXCON_DEBUG=1 vagrant up --debug
 
 | Installed Software | Version | Purpose | env_prodev | env_devmng | env_deploy |
 | :----------------- | :-----: | :------ | :-----: | :-----: | :-----: |
-|Git                 |latest   | install | ○       | ○       | ○       |
+|GNOME Desktop       |latest   | GUI     | ○       | ○       | ○       |
 |Ansible             |latest   | provision | ○       | ○       | ○       |
+|Git                 |latest   | install | ○       | ○       | ○       |
 |Docker              |latest   | use image | -       | ○       | -       |
 |Python              |3.6      | dev and use | ○       | ○       | ○       |
+|GitLab on docker    |11.1.4   | git repo and ci| -       | ○       | -       |
 |||||||

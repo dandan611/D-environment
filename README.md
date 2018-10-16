@@ -71,5 +71,6 @@ EXCON_DEBUG=1 vagrant up --debug
 | :----------------- | :-----: | :------ | :-----: | :-----: | :-----: |
 |Git                 |latest   | install | ○       | ○       | ○       |
 |Ansible             |latest   | provision | ○       | ○       | ○       |
-|docker              |latest   | use image | ○       | ○       | ○       |
+|Docker              |latest   | use image | -       | ○       | -       |
+|Python              |3.6      | dev and use | ○       | ○       | ○       |
 |||||||

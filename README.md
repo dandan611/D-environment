@@ -75,4 +75,5 @@ EXCON_DEBUG=1 vagrant up --debug
 |Docker              |latest   | use image | -       | ○       | -       |
 |Python              |3.6      | dev and use | ○       | ○       | ○       |
 |GitLab on docker    |11.1.4   | git repo and ci| -       | ○       | -       |
+|Google Chrome       |latest   | use product| ○       | ○       | ○       |
 |||||||

@@ -57,6 +57,14 @@ vagrant halt
 $ vagrant destroy -f
 ```
 
+>>>
+**NOTE**
+When an error occurs Execute the following command to check the cause.
+```
+EXCON_DEBUG=1 vagrant up --debug
+```
+>>>
+
 ## Installed software
 
 | Installed Software | Version | Purpose | env_prodev | env_devmng | env_deploy |

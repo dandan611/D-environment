@@ -40,11 +40,6 @@ Vagrant.configure("2") do |config|
   # [Machine Setting] Run shell script on guest machine.
   config.vm.provision "shell", inline: <<-SHELL
      
-     # insall Gnome desktop
-     sudo yum -y groupinstall "GNOME Desktop"
-     sudo systemctl set-default graphical.target
-     systemctl get-default
-     
      # install ansible
      sudo yum -y install ansible
   SHELL

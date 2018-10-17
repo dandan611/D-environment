@@ -1,0 +1,11 @@
+---
+
+- name: Install Gnome desktop environment group
+  yum:
+    name: "@^gnome-desktop-environment"
+    state: present
+  become: yes 
+  
+- name: change runlevel 5
+  shell: "systemctl set-default graphical.target"
+  become: yes

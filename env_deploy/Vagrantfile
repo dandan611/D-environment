@@ -53,11 +53,4 @@ Vagrant.configure("2") do |config|
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook =  "/provision/" + conf['env_type'] + ".yml"
   end
-
-  # [Machine Setting] Run shell script on guest machine.
-  config.vm.provision "shell", inline: <<-SHELL
-
-     # restart vm
-     sudo shutdown -r now
-  SHELL
 end

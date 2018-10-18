@@ -33,6 +33,8 @@ development environment
   * for deploy and testing
   * vagrant@192.168.10.200
 
+<img src="./doc/context_1.png" width="500">
+
 ## Usage
 
 1. start

@@ -29,11 +29,11 @@ Development environment construction tool
 
 ## Environment_Type
 
-| Type       | private ip     | user    | Description                              |
-| :--------- | :------------: | :------ | :--------------------------------------- |
-| env_prodev | 192.168.10.10  | vagrant | Support development product              |
-| env_devmng | 192.168.10.100 | vagrant | Support using development management tool|
-| env_deploy | 192.168.10.200 | vagrant | Support deploy and testing               |
+| Type       | default private ip    | user    | Description                              |
+| :--------- | :-------------------- | :------ | :--------------------------------------- |
+| env_prodev | 192.168.10.10         | vagrant | Support development product              |
+| env_devmng | 192.168.10.100        | vagrant | Support using development management tool|
+| env_deploy | 192.168.10.200        | vagrant | Support deploy and testing               |
 
 <img src="./doc/context_1.png" width="500">
 

@@ -5,5 +5,6 @@
   roles:
     - gnome_desktop
     - python36
+    - git
     - docker
     - reboot

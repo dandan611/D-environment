@@ -6,4 +6,5 @@
     - gnome_desktop
     - python36
     - git
+    - google-chrome
     - reboot

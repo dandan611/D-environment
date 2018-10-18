@@ -40,7 +40,6 @@ development environment
 ```
 $ git clone https://github.com/dandan611/Settler.git
 $ cd <Vagrantfile directory:env_prodev>
-$ mkdir data/
 $ vagrant up
 $ ssh vagrant@192.168.10.10
 ```

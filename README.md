@@ -6,6 +6,7 @@ Development environment construction tool
 * [Tools](#Tools)
 * [OS](#OS)
 * [Environment Type](#Environment_Type)
+* [Usage](#Usage)
 * [Installed software](#Installed_software)
 
 ## Tools
@@ -28,17 +29,11 @@ Development environment construction tool
 
 ## Environment_Type
 
-1. env_prodev
-  * for development product 
-  * vagrant@192.168.10.10
-
-2. env_devmng
-  * for using development management tool 
-  * vagrant@192.168.10.100
-  
-3. env_deploy
-  * for deploy and testing
-  * vagrant@192.168.10.200
+| Type       | private ip     | user    | Description                              |
+| :--------- | :------------: | :------ | :--------------------------------------- |
+| env_prodev | 192.168.10.10  | vagrant | Support development product              |
+| env_devmng | 192.168.10.100 | vagrant | Support using development management tool|
+| env_deploy | 192.168.10.200 | vagrant | Support deploy and testing               |
 
 <img src="./doc/context_1.png" width="500">
 

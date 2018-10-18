@@ -7,4 +7,5 @@
     - python36
     - git
     - docker
+    - gitlab_on_docker
     - reboot

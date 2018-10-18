@@ -46,11 +46,6 @@ Vagrant.configure("2") do |config|
      # install ansible
      sudo yum -y install ansible
 
-     # install docker⇒role
-     sudo yum install -y docker
-     sudo systemctl enable docker
-     sudo systemctl start docker
-     
      # run gitlab⇒role
      sudo docker run --name gitlab-postgresql -d --env 'DB_NAME=gitlabhq_production' --env 'DB_USER=gitlab' --env 'DB_PASS=password' --env 'DB_EXTENSION=pg_trgm' --volume /srv/docker/gitlab/postgresql:/var/lib/postgresql sameersbn/postgresql:10
      sudo docker run --name gitlab-redis -d --volume /srv/docker/gitlab/redis:/var/lib/redis sameersbn/redis:4.0.9-1

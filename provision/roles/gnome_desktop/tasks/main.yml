@@ -1,6 +1,6 @@
 ---
 
-- name: Install Gnome desktop environment group
+- name: install Gnome desktop environment group
   yum:
     name: "@^gnome-desktop-environment"
     state: present

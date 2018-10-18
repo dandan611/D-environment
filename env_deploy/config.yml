@@ -25,4 +25,5 @@ default_port: "8080"		# 80
 # Other
 #---------------------
 
+env_type: "deploy"
 shared_folder: "./data"

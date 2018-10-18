@@ -1,0 +1,9 @@
+#
+# deploy.yml
+#
+- hosts: all
+  roles:
+    - gnome_desktop
+    - python36
+    - git
+    - reboot

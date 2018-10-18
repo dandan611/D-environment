@@ -26,4 +26,5 @@ tabby_default_port: "18000"		# 8000
 # Other
 #---------------------
 
+env_type: "prodev"
 shared_folder: "./data"

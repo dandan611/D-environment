@@ -32,6 +32,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: conf['private_ip']
 
   config.vm.synced_folder conf['shared_folder'], "/vagrant_data"
+  config.vm.synced_folder "../provision", "/provision", type: "virtualbox", owner: "vagrant", group: "vagrant"
 
   config.vm.provider "virtualbox" do |vb|
      vb.name = conf['vbox_instance_name']
@@ -39,24 +40,15 @@ Vagrant.configure("2") do |config|
      vb.gui = conf['vbox_instance_gui']
   end
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-  # documentation for more information about their specific syntax and use.
+  # [Machine Setting] Run shell script on guest machine.
   config.vm.provision "shell", inline: <<-SHELL
-     sudo yum -y groupinstall "GNOME Desktop"
-     sudo yum install gcc zlib-devel bzip2 bzip2-devel readline readline-devel  openssl openssl-devel git
-     sudo systemctl set-default graphical.target
-     sudo systemctl get-default
      
-     # install docker
-     sudo yum install -y docker
-     sudo systemctl enable docker
-     sudo systemctl start docker
-     
-     # run gitla
-     sudo docker run --name gitlab-postgresql -d --env 'DB_NAME=gitlabhq_production' --env 'DB_USER=gitlab' --env 'DB_PASS=password' --env 'DB_EXTENSION=pg_trgm' --volume /srv/docker/gitlab/postgresql:/var/lib/postgresql sameersbn/postgresql:10
-     sudo docker run --name gitlab-redis -d --volume /srv/docker/gitlab/redis:/var/lib/redis sameersbn/redis:4.0.9-1
-     sudo docker run --name gitlab -d     --link gitlab-postgresql:postgresql --link gitlab-redis:redisio --publish 10022:22 --publish 10080:80 --env 'GITLAB_PORT=10080' --env 'GITLAB_SSH_PORT=10022' --env 'GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string' --env 'GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alpha-numeric-string' --env 'GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alpha-numeric-string' --volume /srv/docker/gitlab/gitlab:/home/git/data sameersbn/gitlab:11.1.4
-     sudo shutdown -r now
+     # install ansible
+     sudo yum -y install ansible
   SHELL
+
+  # [VM provisioning] Run Ansible from the Vagrant Host
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook =  "/provision/" + conf['env_type'] + ".yml"
+  end
 end

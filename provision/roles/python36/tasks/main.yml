@@ -1,0 +1,16 @@
+---
+
+- name: install iuscommunity repository
+  yum:
+    name: https://centos7.iuscommunity.org/ius-release.rpm 
+  become: yes 
+
+- name: install python packages
+  yum:
+    name:
+      - python36u
+      - python36u-libs
+      - python36u-devel
+      - python36u-pip
+    state: present
+  become: yes

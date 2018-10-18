@@ -41,27 +41,9 @@ Vagrant.configure("2") do |config|
 
   # [Machine Setting] Run shell script on guest machine.
   config.vm.provision "shell", inline: <<-SHELL
-
-     # install ansible
-     sudo yum -y install ansible
-
-     # roles
-     sudo yum -y epel-release
-     sudo yum -y tree
-     sudo yum install gcc zlib-devel bzip2 bzip2-devel readline readline-devel sqlite sqlite-devel openssl openssl-devel git
-
-     sudo easy_install pip
-     sudo pip install -U pip
-     sudo pip install virtualenv
-     mkdir ~/.pyenv
-     cd ~/.pyenv
-     sudo pip install virtualenvwrapper
-     sudo echo "### Virtualenvwrapper" >> ~/.bash_profile
-     sudo echo "if [ -f /usr/bin/virtualenvwrapper.sh ]; then" >> ~/.bash_profile
-     sudo echo "    export WORKON_HOME=$HOME/.pyenv" >> ~/.bash_profile
-     sudo echo "    source /usr/bin/virtualenvwrapper.sh" >> ~/.bash_profile
-     sudo echo "fi" >> ~/.bash_profile
-     sudo source ~/.bash_profile
+    
+    # install ansible
+    sudo yum -y install ansible
   SHELL
 
   # [VM provisioning] Run Ansible from the Vagrant Host

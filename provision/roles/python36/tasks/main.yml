@@ -34,3 +34,9 @@
 - name: install pip-tools
   shell: pip install pip-tools
   become: yes
+ 
+- name: install virtualenv and virtualenvwrapper
+  shell: |
+    pip install virtualenv
+    pip install virtualenvwrapper
+  become: yes

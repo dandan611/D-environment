@@ -14,3 +14,29 @@
       - python36u-pip
     state: present
   become: yes
+
+- name: change symbolic link `/bin/python`
+  shell: |
+    unlink /bin/python
+    ln -s /bin/python3.6 /bin/python
+  become: yes
+
+- name: change symbolic link `/bin/pip`
+  shell: |
+    unlink /bin/pip
+    ln -s /bin/pip3.6 /bin/pip
+  become: yes
+
+- name: upgrade pip for installing pip-tools
+  shell: pip install --upgrade pip
+  become: yes
+
+- name: install pip-tools
+  shell: pip install pip-tools
+  become: yes
+ 
+- name: install virtualenv and virtualenvwrapper
+  shell: |
+    pip install virtualenv
+    pip install virtualenvwrapper
+  become: yes

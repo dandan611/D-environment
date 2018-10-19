@@ -15,12 +15,6 @@
     state: present
   become: yes
 
-- name: change symbolic link `/bin/python`
-  shell: |
-    unlink /bin/python
-    ln -s /bin/python3.6 /bin/python
-  become: yes
-
 - name: change symbolic link `/bin/pip`
   shell: |
     unlink /bin/pip

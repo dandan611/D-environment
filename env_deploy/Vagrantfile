@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   
   config.vm.network "private_network", ip: conf['private_ip']
 
-  config.vm.synced_folder conf['shared_folder'], "/vagrant_data"
+  config.vm.synced_folder conf['shared_folder'], "/shared_folder"
   config.vm.synced_folder "../provision", "/provision", type: "virtualbox", owner: "vagrant", group: "vagrant"
 
   config.vm.provider "virtualbox" do |vb|

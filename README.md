@@ -25,7 +25,7 @@ Development environment construction tool
 
 ## OS
 
-* CentoOS 7.4
+* CentoOS 7.5
 
 ## Environment_Type
 

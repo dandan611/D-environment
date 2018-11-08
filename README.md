@@ -83,4 +83,14 @@ EXCON_DEBUG=1 vagrant up --debug
 |Python              |3.6      | dev and use | ○       | ○       | ○       |
 |GitLab on docker    |11.1.4   | git repo and ci| -       | ○       | -       |
 |Google Chrome       |latest   | use product| ○       | ○       | ○       |
-|||||||
+|||||
+
+## TCP/UDP_default_Port
+
+| Installed Software | guest   | host    |
+| :----------------- | :-----: | :-----: |
+| Product            | 80      | 8080    |
+| GitLab             | 10080   | 10080   |
+| GitLab-ssh         | 10022   | 10022   |
+| Tabby              | 8000    | 18000   |
+||||

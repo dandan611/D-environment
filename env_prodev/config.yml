@@ -5,7 +5,7 @@
 # Vbox infomation
 #---------------------
 
-vbox_image: "bento/centos-7.5"
+vbox_image: "bento/centos-7.6"
 vbox_instance_name: "prodev"
 vbox_instance_memory: "2048"
 vbox_instance_gui: "true"
